@@ -1,0 +1,32 @@
+{
+    "name": "dmitry/php-auth",
+    "description": "PHP Auth",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitry Momot",
+            "email": "mail@dmomot.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+		"hkulekci/session": "dev-master"
+    },
+    "require-dev": {
+		"hkulekci/session": "dev-master",
+		"j4mie/paris": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+			"Auth\\": "src/"
+		}
+    },
+    "suggest": {
+        "j4mie/paris":"For using ORM adapter"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
