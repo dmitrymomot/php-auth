@@ -34,11 +34,11 @@ class File extends Auth {
 			return false;
 		}
 
-		$password = (is_array($this->_users[$username]) AND isset($this->_users[$username]['password']))
+		$hashPassword = (is_array($this->_users[$username]) AND isset($this->_users[$username]['password']))
 			? $this->_users[$username]['password']
 			: $this->_users[$username];
 
-		if ($this->_users[$username] === $this->hashPassword($password))
+		if ($hashPassword === $this->hashPassword($password))
 		{
 			return $this->_completeLogin($username);
 		}
