@@ -10,10 +10,10 @@
     ],
     "minimum-stability": "dev",
     "require": {
-		"hkulekci/session": "dev-master"
+		"dmitrymomot/php-session": "dev-master"
     },
     "require-dev": {
-		"hkulekci/session": "dev-master",
+		"dmitrymomot/php-session": "dev-master",
 		"j4mie/paris": "dev-master"
     },
     "autoload": {
