@@ -32,7 +32,7 @@ abstract class Auth {
 	 */
 	public function __construct()
 	{
-		$this->_session = new Session;
+		$this->_session = Session::instance();
 	}
 
 	/**
@@ -44,7 +44,7 @@ abstract class Auth {
 	{
 		if (empty($password))
 		{
-			return false
+			return false;
 		}
 
 		return $this->_login($username, $password);
@@ -93,7 +93,7 @@ abstract class Auth {
 		else
 		{
 			$this->_session->delete($this->sessionKey());
-			$this->_session->regenerate($destroy);
+			$this->_session->regenerate();
 		}
 
 		return ( ! $this->loggedIn());
@@ -145,8 +145,7 @@ abstract class Auth {
 	 */
 	public function getUser($default = null)
 	{
-		$user = $this->_session->get($this->sessionKey());
-		return ($user) ? $user : $default;
+		return $this->_session->get($this->sessionKey(), $default);
 	}
 
 	/**
@@ -170,7 +169,7 @@ abstract class Auth {
 	protected function _completeLogin($user)
 	{
 		$this->_session->regenerate();
-		return ($this->_session->set($this->session_key(), $user));
+		return ($this->_session->set($this->sessionKey(), $user));
 	}
 
 	/**
@@ -184,5 +183,5 @@ abstract class Auth {
 	 * @param string $role
 	 * @return boolean
 	 */
-	abstract public function _loggedIn($role = null);
+	abstract protected function _loggedIn($role = null);
 }
