@@ -6,6 +6,11 @@ use \Session\Session;
 
 abstract class Auth {
 
+	// Default roles
+	const ROLE_GUEST 	= 'guest';
+	const ROLE_USER 	= 'user';
+	const ROLE_ADMIN 	= 'admin';
+
 	/**
 	 * Hash for password
 	 * @var string
@@ -42,11 +47,9 @@ abstract class Auth {
 	 */
 	public function login($username, $password)
 	{
-		if (empty($password))
-		{
+		if (empty($password)) {
 			return false;
 		}
-
 		return $this->_login($username, $password);
 	}
 
@@ -57,13 +60,11 @@ abstract class Auth {
 	 */
 	public function loginAs($username, $role = null)
 	{
-		if ( ! $this->loggedIn($role))
-		{
+		if ( ! $this->loggedIn($role)) {
 			return false;
 		}
 
-		if ($this->_session->set($this->_sessionKeyInitUser, $this->getUser()))
-		{
+		if ($this->_session->set($this->_sessionKeyInitUser, $this->getUser())) {
 			return $this->_completeLogin($username);
 		}
 
@@ -86,16 +87,12 @@ abstract class Auth {
 	 */
 	public function logout($destroy = false)
 	{
-		if ($destroy === true)
-		{
+		if ($destroy === true) {
 			$this->_session->destroy();
-		}
-		else
-		{
+		} else {
 			$this->_session->delete($this->sessionKey());
 			$this->_session->regenerate();
 		}
-
 		return ( ! $this->loggedIn());
 	}
 
@@ -107,8 +104,7 @@ abstract class Auth {
 	{
 		$initial_user = $this->_session->get($this->_sessionKeyInitUser);
 
-		if ($initial_user)
-		{
+		if ($initial_user) {
 			$this->logout();
 			return $this->_completeLogin($initial_user);
 		}
@@ -122,8 +118,7 @@ abstract class Auth {
 	 */
 	public function hash($str = null)
 	{
-		if ($str)
-		{
+		if ($str) {
 			$this->_hash = $str;
 		}
 
@@ -154,8 +149,7 @@ abstract class Auth {
 	 */
 	public function sessionKey($key = null)
 	{
-		if ($key)
-		{
+		if ($key) {
 			$this->_sessionKey = $key;
 		}
 

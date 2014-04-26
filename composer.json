@@ -10,10 +10,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php":">=5.3.0",
 		"dmitrymomot/php-session": "dev-master"
     },
     "require-dev": {
-		"dmitrymomot/php-session": "dev-master",
+		"dmitrymomot/php-session": "1.*",
 		"j4mie/paris": "dev-master"
     },
     "autoload": {

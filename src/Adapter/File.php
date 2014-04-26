@@ -23,14 +23,41 @@ class File extends Auth {
 	}
 
 	/**
+	 * Sets user list
+	 * @param array $users
+	 * @return $this
+	 */
+	public function setUsers(array $users)
+	{
+		$this->_users = (is_array($this->_users))
+			? array_merge($this->_users, $users)
+			: $users;
+
+		return $this;
+	}
+
+	/**
+	 * Gets role of current user
+	 * @return string
+	 */
+	public function getRole()
+	{
+		if ($this->getUser() != null) {
+			return (isset($this->_users[$this->getUser()]['role']))
+				? $this->_users[$this->getUser()]['role']
+				: Auth::ROLE_USER;
+		}
+		return Auth::ROLE_GUEST;
+	}
+
+	/**
 	 * @param string $username
 	 * @param string $password
 	 * @return boolean
 	 */
 	protected function _login($username, $password)
 	{
-		if ( ! is_array($this->_users) OR ! array_key_exists($username, $this->_users))
-		{
+		if ( ! is_array($this->_users) OR ! array_key_exists($username, $this->_users)) {
 			return false;
 		}
 
@@ -38,8 +65,7 @@ class File extends Auth {
 			? $this->_users[$username]['password']
 			: $this->_users[$username];
 
-		if ($hashPassword === $this->hashPassword($password))
-		{
+		if ($hashPassword === $this->hashPassword($password)) {
 			return $this->_completeLogin($username);
 		}
 
@@ -52,18 +78,13 @@ class File extends Auth {
 	 */
 	protected function _loggedIn($role = null)
 	{
-		$username = $this->getUser();
+		$username 	= $this->getUser();
+		$userRole	= $this->getRole();
 
-		if ( ! $username OR empty($username))
-		{
+		if ( ! $username OR empty($username)) {
 			return false;
 		}
 
-		if ($role == null OR ! isset($this->_users[$username]['role']))
-		{
-			return ($username != null);
-		}
-
-		return ($this->_users[$username]['role'] == $role);
+		return ($role == null OR $userRole == $role);
 	}
 }

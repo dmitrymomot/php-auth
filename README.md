@@ -11,7 +11,7 @@ This package is available via Composer:
 ```json
 {
     "require": {
-        "dmitrymomot/php-auth": "dev-master"
+        "dmitrymomot/php-auth": "1.*"
     }
 }
 ```
