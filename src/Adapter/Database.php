@@ -152,43 +152,4 @@ class Database extends Auth {
 
 		return Auth::ROLE_GUEST;
 	}
-
-	/**
-	 * Is not empty?
-	 * @param array $data
-	 * @param string $key
-	 * @return boolean
-	 */
-	protected function _isSet(array $data, $key)
-	{
-		return (isset($data[$key]) && !empty($data[$key]));
-	}
-
-	/**
-	 * @param array $data
-	 * @return array of errors
-	 */
-	protected function _validateData(array $data)
-	{
-		$modelClass = $this->_userModelName;
-		$errors 	= array();
-
-		$usernameUniq = \ORM::for_table($modelClass::$_table)
-			->where_equal('username', $data['username'])
-			->find_one();
-
-		$emailUniq = \ORM::for_table($modelClass::$_table)
-			->where_equal('email', $data['email'])
-			->find_one();
-
-		if ($usernameUniq) {
-			$errors[] = 'Username "'.$data['username'].'" already exists';
-		}
-
-		if ($emailUniq) {
-			$errors[] = 'Email "'.$data['email'].'" already exists';
-		}
-
-		return (count($errors) > 0) ? $errors : null;
-	}
 }
