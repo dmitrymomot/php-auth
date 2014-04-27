@@ -3,6 +3,11 @@ php-auth
 
 Simply authentication library
 
+Key points:
+- Supports drivers ('file' and 'database' adapters already included in the package).
+- Easy to use
+- Minimum configuration
+
 
 ## Installation
 
@@ -24,7 +29,7 @@ $auth = new \Auth\Adapter\File;
 $auth->setUsers(array('test_user' => array('password' => 'hashed_password', 'role' => 'user')));
 ```
 
-Login
+Log in
 ```php
 $auth->login('test_user', 'password'); // returns boolean value
 ```
@@ -39,23 +44,33 @@ Get user role
 $auth->getRole() // returns string
 ```
 
-Check login
+Check log in
 ```php
 $auth->loggedIn() // returned true
 ```
 
-Check login as
+Check log in as
 ```php
 $auth->loggedIn('admin') // returned false
 $auth->loggedIn('user') // returned true
 ```
 
-Logout
+Log out
 ```php
 $auth->logout(); // returns boolean value
 ```
 
-### Usage adapter "database"
+Log in as another user
+```php
+$auth->loginAs('username'); // returns boolean value
+```
+
+Come back to initial user
+```php
+$auth->comeBack(); // returns boolean value
+```
+
+### Usage adapter "database" <small>(supports the all of "file" adapter)</small>
 
 In composer.json add package php-activerecord/php-activerecord
 ```json
@@ -90,35 +105,9 @@ $model = '\Custom\Model\CustomUser'; // full path to class
 $auth = new \Auth\Adapter\Database($model);
 ```
 
-Login
-```php
-$auth->login('test_user', 'password'); // returns boolean value
-```
-
-Check login
-```php
-$auth->loggedIn() // returned true
-```
-
-Check login as
-```php
-$auth->loggedIn('admin') // returned false
-$auth->loggedIn('user') // returned true
-```
-
 Get user
 ```php
 $auth->getUser('guest') // returns instance of class \Auth\Model\User or 'guest', if user isn't logged in
-```
-
-Get user role
-```php
-$auth->getRole() // returns string
-```
-
-Logout
-```php
-$auth->logout(); // returns boolean value
 ```
 
 Create new user
