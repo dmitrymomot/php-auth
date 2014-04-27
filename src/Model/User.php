@@ -62,8 +62,8 @@ class User extends Model implements UserInterface {
 	 */
 	public function getRole($default = null)
 	{
-		$role = $this->role->name;
-		return ($role) ? $role : $default;
+		$role = $this->role;
+		return ($role) ? $role->name : $default;
 	}
 
 	/**

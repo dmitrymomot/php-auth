@@ -58,7 +58,8 @@ abstract class Auth {
 			return false;
 		}
 
-		if ($this->_session->set($this->_sessionKeyInitUser, $this->getUser())) {
+		if ($this->_session->set($this->_sessionKeyInitUser, $this->getUserName())) {
+			$this->logout();
 			return $this->_completeLogin($username);
 		}
 
