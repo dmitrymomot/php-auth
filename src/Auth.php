@@ -12,12 +12,6 @@ abstract class Auth {
 	const ROLE_ADMIN 	= 'admin';
 
 	/**
-	 * Hash for password
-	 * @var string
-	 */
-	protected $_hash;
-
-	/**
 	 * @var instance of class \Session\Session
 	 */
 	protected $_session;
@@ -113,25 +107,12 @@ abstract class Auth {
 	}
 
 	/**
-	 * @param string $str
-	 * @return string
-	 */
-	public function hash($str = null)
-	{
-		if ($str) {
-			$this->_hash = $str;
-		}
-
-		return $this->_hash;
-	}
-
-	/**
 	 * @param string $password
 	 * @return string
 	 */
 	public function hashPassword($str)
 	{
-		return hash_hmac('sha256', $str, $this->hash());
+		return static::hash($str);
 	}
 
 	/**
@@ -141,6 +122,24 @@ abstract class Auth {
 	public function getUser($default = null)
 	{
 		return $this->_session->get($this->sessionKey(), $default);
+	}
+
+	/**
+	 * @param string $default
+	 * @return string
+	 */
+	public function getUserName($default = null)
+	{
+		return $this->getUser($default);
+	}
+
+	/**
+	 * Gets role of current user
+	 * @return string
+	 */
+	public function getRole()
+	{
+		return $this->_getRole();
 	}
 
 	/**
@@ -178,4 +177,29 @@ abstract class Auth {
 	 * @return boolean
 	 */
 	abstract protected function _loggedIn($role = null);
+
+	/**
+	 * Gets role of current user
+	 * @return string
+	 */
+	abstract protected function _getRole();
+
+	// ============================== Helpers =============================== //
+
+	/**
+	 * @var string
+	 */
+	public static $hashKey = null;
+
+	/**
+	 * Hash string
+	 * @param string $str
+	 * @param string $hash
+	 * @return string
+	 */
+	public static function hash($str, $hash = null)
+	{
+		$hash = ($hash) ? $hash : static::$hashKey;
+		return hash_hmac('sha256', $str, $hash);
+	}
 }

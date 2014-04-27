@@ -15,7 +15,7 @@
     },
     "require-dev": {
 		"dmitrymomot/php-session": "1.*",
-		"j4mie/paris": "dev-master"
+        "php-activerecord/php-activerecord":"dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -23,7 +23,7 @@
 		}
     },
     "suggest": {
-        "j4mie/paris":"For using ORM adapter"
+        "php-activerecord/php-activerecord":"For using Database adapter"
     },
     "extra": {
         "branch-alias": {

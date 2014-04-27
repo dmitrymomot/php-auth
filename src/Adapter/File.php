@@ -37,20 +37,6 @@ class File extends Auth {
 	}
 
 	/**
-	 * Gets role of current user
-	 * @return string
-	 */
-	public function getRole()
-	{
-		if ($this->getUser() != null) {
-			return (isset($this->_users[$this->getUser()]['role']))
-				? $this->_users[$this->getUser()]['role']
-				: Auth::ROLE_USER;
-		}
-		return Auth::ROLE_GUEST;
-	}
-
-	/**
 	 * @param string $username
 	 * @param string $password
 	 * @return boolean
@@ -86,5 +72,19 @@ class File extends Auth {
 		}
 
 		return ($role == null OR $userRole == $role);
+	}
+
+	/**
+	 * Gets role of current user
+	 * @return string
+	 */
+	protected function _getRole()
+	{
+		if ($this->getUser() != null) {
+			return (isset($this->_users[$this->getUser()]['role']))
+				? $this->_users[$this->getUser()]['role']
+				: Auth::ROLE_USER;
+		}
+		return Auth::ROLE_GUEST;
 	}
 }
