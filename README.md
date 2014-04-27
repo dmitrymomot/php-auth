@@ -23,7 +23,7 @@ This package is available via Composer:
 
 ## Example of usage
 
-### Usage adapter "file"
+### Usage adapter [File](https://github.com/dmitrymomot/php-auth/blob/master/src/Adapter/File.php)
 ```php
 $auth = new \Auth\Adapter\File;
 $auth->setUsers(array('test_user' => array('password' => 'hashed_password', 'role' => 'user')));
@@ -70,7 +70,7 @@ Come back to initial user
 $auth->comeBack(); // returns boolean value
 ```
 
-### Usage adapter "database"
+### Usage adapter [Database](https://github.com/dmitrymomot/php-auth/blob/master/src/Adapter/Database.php)
 *(supports all the same that 'file' adapter)*
 
 In composer.json add package php-activerecord/php-activerecord
