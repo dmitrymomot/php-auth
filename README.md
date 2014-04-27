@@ -70,7 +70,8 @@ Come back to initial user
 $auth->comeBack(); // returns boolean value
 ```
 
-### Usage adapter "database" <small>(supports the all of "file" adapter)</small>
+### Usage adapter "database"
+*(supports all the same that 'file' adapter)*
 
 In composer.json add package php-activerecord/php-activerecord
 ```json
