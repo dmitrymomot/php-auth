@@ -28,9 +28,15 @@ class Database extends Auth {
 	{
 		parent::__construct();
 
-		$this->_userModelName = ($userModelName)
+		$this->_userModelName =
+		$userModelName = ($userModelName)
 			? $userModelName
 			: '\\Auth\\Model\\User';
+
+		$interfaces = class_implements($userModelName);
+		if (!in_array('Auth\Model\UserInterface', $interfaces)) {
+			throw new \Exception('Model '.$userModelName.' should implements interface \Auth\Model\UserInterface');
+		}
 	}
 
 	/**

@@ -4,8 +4,9 @@ namespace Auth\Model;
 
 use \ActiveRecord\Model;
 use \Auth\Auth;
+use \Auth\Model\UserInterface;
 
-class User extends Model {
+class User extends Model implements UserInterface {
 
 	/**
 	 * Rules for validation
